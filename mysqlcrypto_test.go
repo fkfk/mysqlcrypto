@@ -17,6 +17,12 @@ func TestAESEncrypt(t *testing.T) {
 	if string(encrypted) != string(expected) {
 		t.Errorf("AESEncrypt(Japanese character) mismatch(%x:%x)", encrypted, expected)
 	}
+
+	expected, _ = hex.DecodeString("59A597C079C4A25CB8BA415A74204020")
+	encrypted = AESEncrypt([]byte(""), []byte("testcryptkey"))
+	if string(encrypted) != string(expected) {
+		t.Errorf("AESEncrypt(empty value) mismatch(%x:%x)", encrypted, expected)
+	}
 }
 
 func TestAESDecrypt(t *testing.T) {
@@ -32,5 +38,12 @@ func TestAESDecrypt(t *testing.T) {
 	decrypted = AESDecrypt(encrypted, []byte("testcryptkey"))
 	if string(decrypted) != expected {
 		t.Errorf("AESDecrypt(Japanese character) mismatch(%x:%x)", string(decrypted), expected)
+	}
+
+	expected = ""
+	encrypted, _ = hex.DecodeString("59A597C079C4A25CB8BA415A74204020")
+	decrypted = AESDecrypt(encrypted, []byte("testcryptkey"))
+	if string(decrypted) != expected {
+		t.Errorf("AESDecrypt(empty value) mismatch(%x:%x)", string(decrypted), expected)
 	}
 }
