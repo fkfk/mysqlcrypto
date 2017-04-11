@@ -15,7 +15,7 @@ func AESEncrypt(src []byte, key []byte) (encrypted []byte) {
 	}
 	encrypted = make([]byte, len(plain))
 
-	for bs, be := 0, cipher.BlockSize(); bs < len(src); bs, be = bs+cipher.BlockSize(), be+cipher.BlockSize() {
+	for bs, be := 0, cipher.BlockSize(); bs <= len(src); bs, be = bs+cipher.BlockSize(), be+cipher.BlockSize() {
 		cipher.Encrypt(encrypted[bs:be], plain[bs:be])
 	}
 
