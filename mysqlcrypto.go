@@ -29,7 +29,10 @@ func AESDecrypt(encrypted []byte, key []byte) (decrypted []byte) {
 		cipher.Decrypt(decrypted[bs:be], encrypted[bs:be])
 	}
 
-	trim := len(decrypted) - int(decrypted[len(decrypted)-1])
+	trim := 0
+	if len(decrypted) > 0 {
+		trim = len(decrypted) - int(decrypted[len(decrypted)-1])
+	}
 
 	return decrypted[:trim]
 }
